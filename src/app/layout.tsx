@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Instrument_Sans, Baloo_Da_2, Pacifico } from 'next/font/google';
+import Footer from "@/components/Footer";
 
 
 const instrumental = Instrument_Sans({
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className="font-baloo">
       <Navbar/>
         {children}
+      <Footer/>  
       </body>
     </html>
   );

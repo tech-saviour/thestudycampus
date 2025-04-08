@@ -1,4 +1,5 @@
 import AboutUsSection from "@/components/AboutUsSection";
+import FAQ from "@/components/FAQ";
 import ImageSlider from "@/components/ImageSlider";
 import ParentsTestimonials from "@/components/ParentsTestimonials";
 import PreschoolPrograms from "@/components/PreschoolPrograms";
@@ -13,6 +14,7 @@ export default function Home() {
       <PreschoolPrograms/>
       <USPsSection/>
       <ParentsTestimonials/>
+      <FAQ/>
     </div>
   );
 }
