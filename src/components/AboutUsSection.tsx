@@ -8,12 +8,12 @@ const AboutUsSection = () => {
             className="bg-[#FFF8F1] py-12"
             aria-labelledby="about-us-heading"
         >
-            <div className="max-w-screen-xl mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div className="max-w-screen-xl  mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12">
                 {/* Left Content */}
-                <div className="w-full lg:w-1/2 space-y-6">
+                <div className="w-full  lg:w-1/2 space-y-6">
                     <h2
                         id="about-us-heading"
-                        className="text-4xl font-bold font-baloo text-orange-500"
+                        className="text-4xl text-center sm:text-left font-bold font-baloo text-orange-500"
                     >
                         About Us
                     </h2>

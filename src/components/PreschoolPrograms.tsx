@@ -35,7 +35,7 @@ const programs = [
 
 export default function PreschoolPrograms() {
     return (
-        <section id="preschool-programs" className="bg-[#fff8f3] py-12 px-4 md:px-16">
+        <section id="preschool-programs" className="bg-[#fff8f3] py-12 px-16 md:px-16">
             <h2 className="text-3xl md:text-4xl font-bold font-baloo text-center text-black mb-10">
                 Our Preschool Programs
             </h2>
@@ -47,7 +47,7 @@ export default function PreschoolPrograms() {
                         className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col"
                     >
                         {/* Image with wavy bottom */}
-                        <div className="relative w-full h-48">
+                        <div className="relative w-full  h-48 ">
                             <Image
                                 src={program.imgSrc}
                                 alt={program.imgAlt}

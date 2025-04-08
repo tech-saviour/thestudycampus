@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <>
       {/* Sticky Header with higher z-index */}
-      <header className="bg-[#FF8800] text-white shadow-md sticky top-0 z-50">
+      <header className="bg-[#FF8800] text-white sticky top-0 z-50">
         <nav className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
           <div className="flex items-center space-x-2">
             <Image
@@ -84,7 +84,7 @@ export default function Navbar() {
       </header>
 
       {/* Wave SVG: placed normally and under header using z-index */}
-      <div className="relative z-50 -mt-1">
+      <div className="relative z-49 -mt-1">
         <svg
           viewBox="0 0 1200 100"
           preserveAspectRatio="none"
