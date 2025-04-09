@@ -21,27 +21,27 @@ const ContactUs = () => {
                             alt="Phone"
                             width={260}
                             height={300}
-                            className="rounded-md shadow-md mx-auto lg:mx-0"
+                            className="rounded-md mt-6 lg:mt-0 shadow-md mx-auto lg:mx-0"
                         />
                     </div>
                 </div>
 
 
                 {/* Text Content */}
-                <div className="relative z-10 px-2 text-black text-center lg:text-left">
-                    <h2 id="contact-heading" className="text-sm font-semibold uppercase">
+                <div className="relative z-10 py-8 lg:px-2 text-black text-center lg:text-left">
+                    <h2 id="contact-heading" className="text-sm font-semibold uppercase mt-8">
                         For More Information
                     </h2>
 
-                    <div className=" z-40 bg-[#FF8800]  -mx-10 px-4 lg:pr-96 py-2 my-2">
+                    <div className=" z-40 bg-[#FF8800] -mx-10 px-4 lg:pr-96 py-2 my-2">
                         <h3 className="text-3xl lg:text-5xl lg:-mx-2 font-bold">Contact Us</h3>
                     </div>
 
                     <div className="mt-4 text-sm text-gray-800 leading-relaxed">
-                        <p className="font-semibold flex items-center gap-1">
-                            Address <MdLocationOn className="text-base" />
+                        <p className="font-semibold flex text-left gap-1">
+                            Address <MdLocationOn className="text-lg" />
                         </p>
-                        <p className='flex items-center'>Gagol road near Acchronda mood, Partapur, Meerut</p>
+                        <p className='flex text-left'>Gagol road near Acchronda mood, Partapur, Meerut</p>
 
                         <p className="mt-3 flex items-center gap-2">
                             <BsTelephoneFill className="text-lg" /> 8077852471
