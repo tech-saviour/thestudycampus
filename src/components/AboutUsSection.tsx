@@ -5,8 +5,9 @@ import Image from 'next/image';
 const AboutUsSection = () => {
     return (
         <section
-            className="bg-[#FFF8F1] py-12"
+            className="bg-[#FFF8F1] py-12 scroll-mt-24 pt-8"
             aria-labelledby="about-us-heading"
+            id='about'
         >
             <div className="max-w-screen-xl  mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12">
                 {/* Left Content */}

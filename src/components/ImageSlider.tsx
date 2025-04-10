@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -20,11 +20,17 @@ const ImageSlider = () => {
     setCurrentIndex(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
   };
 
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000); // 5 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
   return (
-    <section
-      className="w-full -mt-16  "
-      aria-label="Image Carousel"
-    >
+    <section className="w-full -mt-16" aria-label="Image Carousel">
       <div className="relative w-full max-w-[100%] mx-auto aspect-[16/9] sm:aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] overflow-hidden rounded-none sm:rounded-xl shadow-lg">
         <Image
           src={images[currentIndex].src}
@@ -72,6 +78,7 @@ const ImageSlider = () => {
 };
 
 export default ImageSlider;
+
 
 
 

@@ -35,7 +35,7 @@ const programs = [
 
 export default function PreschoolPrograms() {
     return (
-        <section id="preschool-programs" className="bg-[#fff8f3] py-12 px-16 md:px-16">
+        <section id="programs" className="bg-[#fff8f3] py-12 px-16 md:px-16 scroll-mt-24 pt-8">
             <h2 className="text-3xl md:text-4xl font-bold font-baloo text-center text-black mb-10">
                 Our Preschool Programs
             </h2>

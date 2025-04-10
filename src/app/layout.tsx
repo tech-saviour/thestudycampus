@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumental.variable} ${baloo.variable} ${pacifico.variable}`}>
+    <html lang="en" className={`scroll-smooth ${instrumental.variable} ${baloo.variable} ${pacifico.variable}`}>
       <body className="font-baloo">
       <Navbar/>
         {children}
