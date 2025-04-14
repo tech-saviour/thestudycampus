@@ -41,16 +41,17 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <Image
+          <Link href="/" className="cursor-pointer"><Image
               src="/logo.png"
               alt="The Study Campus Logo"
               width={55}
               height={44}
               className="object-contain"
             />
+            </Link>
             <div className="leading-tight">
-              <p className="font-bold text-2xl">The Study Campus</p>
-              <p className="text-base text-right -mt-1">Play School</p>
+              <Link href="/" className="cursor-pointer"><p className="font-bold text-2xl">The Study Campus</p></Link>
+              <Link href="/" className="cursor-pointer"><p className="text-base text-right -mt-1">Play School</p></Link>
             </div>
           </div>
 
