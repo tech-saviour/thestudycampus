@@ -1,9 +1,40 @@
 'use client';
 
+import React, { useState } from 'react';
 import Image from 'next/image';
-import React from 'react';
 
 export default function AdmissionEnquirySection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    child: '',
+  });
+
+  const [status, setStatus] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('Sending...');
+
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await res.json();
+    setStatus(result.message);
+
+    if (res.ok) {
+      setFormData({ name: '', email: '', mobile: '', child: '' });
+    }
+  };
+
   return (
     <section
       className="relative bg-[#fff7f0] py-20 px-4 sm:px-10 flex flex-col lg:flex-row items-center justify-center gap-8 overflow-hidden"
@@ -34,7 +65,7 @@ export default function AdmissionEnquirySection() {
           Admission Open – Nurturing Bright Futures Begins Here!
         </h1>
         <p className="mt-4 text-gray-700 text-base">
-          At <strong>[Your Play School Name]</strong>, we believe that every child deserves a joyful and enriching start to their learning journey. Our play-based curriculum, experienced staff, and safe, welcoming environment make us the perfect place for your little one to grow, explore, and thrive!
+          At <strong>[Your Play School Name]</strong>, we believe that every child deserves a joyful and enriching start to their learning journey.
         </p>
       </div>
 
@@ -43,18 +74,13 @@ export default function AdmissionEnquirySection() {
         <h2 className="text-xl font-bold mb-4 text-center text-gray-900">
           Admission Enquiry AY 2025–26
         </h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            // handleSubmit logic
-          }}
-          className="flex flex-col gap-4"
-          aria-label="Admission enquiry form"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"
             name="name"
             required
+            value={formData.name}
+            onChange={handleChange}
             placeholder="Full Name"
             className="rounded-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none"
           />
@@ -62,6 +88,8 @@ export default function AdmissionEnquirySection() {
             type="email"
             name="email"
             required
+            value={formData.email}
+            onChange={handleChange}
             placeholder="Email Id"
             className="rounded-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none"
           />
@@ -69,12 +97,16 @@ export default function AdmissionEnquirySection() {
             type="tel"
             name="mobile"
             required
+            value={formData.mobile}
+            onChange={handleChange}
             placeholder="Mobile Number"
             className="rounded-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none"
           />
           <input
             type="text"
             name="child"
+            value={formData.child}
+            onChange={handleChange}
             placeholder="Child Name"
             className="rounded-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none"
           />
@@ -84,8 +116,12 @@ export default function AdmissionEnquirySection() {
           >
             Submit
           </button>
+          {status && (
+            <p className="text-center text-sm text-green-600 font-medium">{status}</p>
+          )}
         </form>
       </div>
     </section>
   );
 }
+
