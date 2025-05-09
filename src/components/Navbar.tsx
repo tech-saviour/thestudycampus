@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,28 +42,44 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-          <Link href="/" className="cursor-pointer"><Image
-              src="/logo.png"
-              alt="The Study Campus Logo"
-              width={55}
-              height={44}
-              className="object-contain"
-            />
+            <Link href="/" className="cursor-pointer">
+              <Image
+                src="/logo.png"
+                alt="The Study Campus Logo"
+                width={55}
+                height={44}
+                className="object-contain"
+              />
             </Link>
             <div className="leading-tight">
-              <Link href="/" className="cursor-pointer"><p className="font-bold text-2xl">The Study Campus</p></Link>
-              <Link href="/" className="cursor-pointer"><p className="text-base text-right -mt-1">Play School</p></Link>
+              <Link href="/" className="cursor-pointer">
+                <p className="font-bold text-2xl">The Study Campus</p>
+              </Link>
+              <Link href="/" className="cursor-pointer">
+                <p className="text-base text-right -mt-1">Play School</p>
+              </Link>
             </div>
           </div>
 
           {/* Desktop Nav */}
           <ul className="hidden md:flex items-center space-x-6 font-medium text-base">
-            <li><Link href="/" className="cursor-pointer">Home</Link></li>
-            <li>
-              <span className="cursor-pointer" onClick={() => handleNavClick('about')}>About Us</span>
-            </li>
-            <li
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <Link href="/" className="cursor-pointer">Home</Link>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              onClick={() => handleNavClick('about')}
+            >
+              <span className="cursor-pointer">About Us</span>
+            </motion.li>
+            <motion.li
               className="relative"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
               onMouseEnter={() => setGalleryOpen(true)}
               onMouseLeave={() => setGalleryOpen(false)}
             >
@@ -71,17 +88,40 @@ export default function Navbar() {
                 <ChevronDown size={16} />
               </div>
               {galleryOpen && (
-                <ul className="absolute bg-white text-black mt-2 rounded shadow-md p-2 z-10 space-y-1">
-                  <li><Link href="/gallery/photos" className="block px-3 py-1 hover:bg-gray-100 rounded">Photos</Link></li>
-                  <li><Link href="/gallery/videos" className="block px-3 py-1 hover:bg-gray-100 rounded">Videos</Link></li>
-                </ul>
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute bg-white text-black mt-2 rounded shadow-md p-2 z-10 space-y-1"
+                >
+                  <li>
+                    <Link href="/gallery/photos" className="block px-3 py-1 hover:bg-gray-100 rounded">Photos</Link>
+                  </li>
+                  <li>
+                    <Link href="/gallery/videos" className="block px-3 py-1 hover:bg-gray-100 rounded">Videos</Link>
+                  </li>
+                </motion.ul>
               )}
-            </li>
-            <li><Link href="/contact" className="cursor-pointer">Contact Us</Link></li>
-            <li>
-              <span className="cursor-pointer" onClick={() => handleNavClick('programs')}>Programs</span>
-            </li>
-            <li><Link href="/admissions" className="cursor-pointer">Admissions</Link></li>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <Link href="/contact" className="cursor-pointer">Contact Us</Link>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              onClick={() => handleNavClick('programs')}
+            >
+              <span className="cursor-pointer">Programs</span>
+            </motion.li>
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <Link href="/admissions" className="cursor-pointer">Admissions</Link>
+            </motion.li>
           </ul>
 
           {/* Mobile Menu Button */}
@@ -92,27 +132,73 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <nav className="md:hidden px-4 pb-4">
+          <motion.nav
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden px-4 pb-4"
+          >
             <ul className="flex flex-col space-y-2 font-medium">
-              <li><Link href="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-              <li><span className="cursor-pointer" onClick={() => handleNavClick('about')}>About Us</span></li>
-              <li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+              </motion.li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                onClick={() => handleNavClick('about')}
+              >
+                <span className="cursor-pointer">About Us</span>
+              </motion.li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
                 <details className="group">
                   <summary className="flex items-center space-x-1 cursor-pointer">
                     <span>Gallery</span>
                     <ChevronDown size={16} />
                   </summary>
                   <ul className="pl-4 mt-1 space-y-1">
-                    <li><Link href="/gallery/photos" onClick={() => setMenuOpen(false)}>Photos</Link></li>
-                    <li><Link href="/gallery/videos" onClick={() => setMenuOpen(false)}>Videos</Link></li>
+                    <motion.li
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Link href="/gallery/photos" onClick={() => setMenuOpen(false)}>Photos</Link>
+                    </motion.li>
+                    <motion.li
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Link href="/gallery/videos" onClick={() => setMenuOpen(false)}>Videos</Link>
+                    </motion.li>
                   </ul>
                 </details>
-              </li>
-              <li><Link href="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link></li>
-              <li><span className="cursor-pointer" onClick={() => handleNavClick('programs')}>Programs</span></li>
-              <li><Link href="/admissions" onClick={() => setMenuOpen(false)}>Admissions</Link></li>
+              </motion.li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+              </motion.li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                onClick={() => handleNavClick('programs')}
+              >
+                <span className="cursor-pointer">Programs</span>
+              </motion.li>
+              <motion.li
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Link href="/admissions" onClick={() => setMenuOpen(false)}>Admissions</Link>
+              </motion.li>
             </ul>
-          </nav>
+          </motion.nav>
         )}
       </header>
 

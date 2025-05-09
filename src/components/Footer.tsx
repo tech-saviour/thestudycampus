@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import { MdLocationOn, MdPhone, MdEmail } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#ff8800] text-white ">
+    <footer className="relative bg-[#ff8800] text-white">
       {/* Wavy SVG at the top */}
       <div className="absolute -top-16 left-0 w-full overflow-hidden leading-none rotate-180">
         <svg
@@ -31,10 +32,19 @@ export default function Footer() {
       </div>
 
       {/* Footer content */}
-      <div className=" mx-auto px-20 py-10">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mx-auto px-20 py-10"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Address Section */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <h3 className="text-lg font-bold flex items-center gap-2">
               <MdLocationOn size={24} />
               Address
@@ -43,25 +53,31 @@ export default function Footer() {
               Gagol road near Acchronda mood, <br />
               Partapur, Meerut
             </p>
-          </div>
+          </motion.div>
 
           {/* Contact Section */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <h3 className="text-lg font-bold flex items-center gap-2">
-              
               Contact Us
             </h3>
             <p className="mt-2 text-sm">
-               <a href="tel:8077852471" className="underline flex gap-1"> <MdPhone size={24} />8077852471</a>
+              <a href="tel:8077852471" className="underline flex gap-1"> <MdPhone size={24} />8077852471</a>
             </p>
             <p className="mt-1 text-sm">
-                
-               <a href="mailto:info@thestudycampus.in" className="underline flex gap-1"><MdEmail size={24} /> info@thestudycampus.in</a>
+              <a href="mailto:info@thestudycampus.in" className="underline flex gap-1"><MdEmail size={24} /> info@thestudycampus.in</a>
             </p>
-          </div>
+          </motion.div>
 
           {/* Social Media Section */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <h3 className="text-lg font-bold">Follow Us</h3>
             <div className="flex mt-2 space-x-4">
               <Link href="https://www.instagram.com" aria-label="Instagram">
@@ -77,14 +93,19 @@ export default function Footer() {
                 <FaLinkedinIn size={24} />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Copyright Section */}
-        <div className="mt-8 text-center text-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="mt-8 text-center text-sm"
+        >
           &copy; {new Date().getFullYear()} The Study Campus. All rights reserved.
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 }

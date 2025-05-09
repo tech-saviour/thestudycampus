@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function AdmissionEnquirySection() {
   const [formData, setFormData] = useState({
@@ -41,23 +42,40 @@ export default function AdmissionEnquirySection() {
       aria-labelledby="admission-heading"
     >
       {/* Decorative Icons */}
-      <Image
-        src="/icon-pen.png"
-        alt="Pen Icon"
-        width={60}
-        height={60}
+      <motion.div
         className="absolute top-8 left-4 sm:left-10 z-10"
-      />
-      <Image
-        src="/icon-home.png"
-        alt="Home Icon"
-        width={60}
-        height={60}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <Image
+          src="/icon-pen.png"
+          alt="Pen Icon"
+          width={60}
+          height={60}
+        />
+      </motion.div>
+      <motion.div
         className="absolute bottom-8 left-8 sm:left-12 z-10"
-      />
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <Image
+          src="/icon-home.png"
+          alt="Home Icon"
+          width={60}
+          height={60}
+        />
+      </motion.div>
 
       {/* Left Text Section */}
-      <div className="max-w-xl text-center lg:text-left z-20">
+      <motion.div
+        className="max-w-xl text-center lg:text-left z-20"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.2 }}
+      >
         <h1
           id="admission-heading"
           className="text-3xl sm:text-4xl font-semibold leading-snug text-gray-900"
@@ -65,12 +83,17 @@ export default function AdmissionEnquirySection() {
           Admission Open – Nurturing Bright Futures Begins Here!
         </h1>
         <p className="mt-4 text-gray-700 text-base">
-          At <strong>[Your Play School Name]</strong>, we believe that every child deserves a joyful and enriching start to their learning journey.
+          At <strong>The Study Campus</strong>, we believe that every child deserves a joyful and enriching start to their learning journey.
         </p>
-      </div>
+      </motion.div>
 
       {/* Right Form Section */}
-      <div className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-md z-20">
+      <motion.div
+        className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-md z-20"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         <h2 className="text-xl font-bold mb-4 text-center text-gray-900">
           Admission Enquiry AY 2025–26
         </h2>
@@ -120,8 +143,9 @@ export default function AdmissionEnquirySection() {
             <p className="text-center text-sm text-green-600 font-medium">{status}</p>
           )}
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
 
