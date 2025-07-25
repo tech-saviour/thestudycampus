@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 const AboutUsSection = () => {
     const ref = useRef(null);
-    const inView = useInView(ref, { amount: 'some', once: false });
+    const inView = useInView(ref, { amount: 0.5, once: false });
     const controls = useAnimation();
 
     useEffect(() => {
@@ -19,90 +20,118 @@ const AboutUsSection = () => {
 
     return (
         <section
-            className="bg-[#FFF8F1] py-12 scroll-mt-24 pt-8"
-            aria-labelledby="about-us-heading"
+            ref={ref}
             id="about"
+            aria-labelledby="about-us-heading"
+            className="relative bg-[#FFF8F1] py-20 scroll-mt-24 transition-colors duration-300"
         >
-            <div
-                className="max-w-screen-xl mx-auto px-4 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12"
-                ref={ref}
-            >
-                {/* Left Content */}
-                <motion.div
-                    className="w-full lg:w-1/2 space-y-6"
+            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-16">
+                {/* Text Content */}
+                <motion.article
                     initial="hidden"
                     animate={controls}
                     variants={{
-                        hidden: { opacity: 0, x: -50 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+                        hidden: { opacity: 0, x: -60 },
+                        visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: 'easeOut' } },
                     }}
+                    className="w-full lg:w-1/2 space-y-6"
                 >
-                    <h2
-                        id="about-us-heading"
-                        className="text-4xl text-center sm:text-left font-bold font-baloo text-orange-500"
-                    >
-                        About Us
-                    </h2>
+                    <header>
+                        <h2
+                            id="about-us-heading"
+                            className="text-4xl sm:text-5xl font-bold font-baloo text-orange-500 text-center sm:text-left"
+                        >
+                            About Us
+                        </h2>
+                    </header>
 
-                    <div className="space-y-4 text-sm sm:text-base text-black leading-relaxed">
+                    <div className="space-y-5 text-black text-sm sm:text-base leading-relaxed">
                         <p>
-                            <strong className="italic">Nurturing Young Minds</strong><br />
-                            At Little Steps Play School, we believe that every child is unique. Our early learning environment is filled with fun, creativity, and exploration, helping children grow socially and emotionally.
+                            <strong className="italic text-orange-600">Nurturing Young Minds</strong><br />
+                            At Little Steps Play School, every child is a star. We provide a vibrant, joyful learning space
+                            where fun, creativity, and exploration are part of everyday learning.
                         </p>
                         <p>
-                            <strong className="italic">Experienced & Caring Staff</strong><br />
-                            Our qualified teachers use playful methods to introduce numbers, letters, music, and stories, fostering curiosity and confidence in each child.
+                            <strong className="italic text-orange-600">Experienced & Caring Staff</strong><br />
+                            Our educators bring warmth, expertise, and play-based techniques to introduce early concepts
+                            through music, movement, and storytelling.
                         </p>
                         <p>
-                            <strong className="italic">Safe & Joyful Spaces</strong><br />
-                            We provide a colorful, safe, and hygienic environment where children can learn through play, express themselves freely, and build early friendships.
+                            <strong className="italic text-orange-600">Safe & Joyful Spaces</strong><br />
+                            From bright classrooms to clean play zones, safety and joy come together in every corner of our school.
                         </p>
                     </div>
-                </motion.div>
 
-                {/* Right Image + Decorations */}
-                <motion.div
-                    className="relative flex justify-center w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] lg:w-[450px] lg:h-[450px]"
+                    {/* CTA Button */}
+                    <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-6"
+                    >
+                        <Link
+                            href="#contact"
+                            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full shadow-md transition-all duration-300"
+                        >
+                            Schedule a Visit
+                        </Link>
+                    </motion.div>
+                </motion.article>
+
+                {/* Image & Decoration */}
+                <motion.figure
                     initial="hidden"
                     animate={controls}
                     variants={{
-                        hidden: { opacity: 0, x: 50 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.2 } },
+                        hidden: { opacity: 0, x: 60 },
+                        visible: {
+                            opacity: 1,
+                            x: 0,
+                            transition: { duration: 0.7, delay: 0.2, ease: 'easeOut' },
+                        },
                     }}
+                    whileHover={{ scale: 1.02, rotate: 1 }}
+                    transition={{ type: 'spring', stiffness: 120 }}
+                    className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] lg:w-[450px] lg:h-[450px]"
+                    aria-label="Playful classroom environment"
                 >
-                    <div className="absolute bottom-2 right-1 sm:-bottom-4 sm:-right-4 w-11/12 h-11/12 sm:w-full sm:h-full rounded-full bg-gray-600 z-0" />
-                    <div className="absolute right-4 bottom-8 sm:-bottom-2 sm:-right-2w-11/12 h-11/12 sm:w-full sm:h-full rounded-full bg-orange-500 z-10" />
-                    <div className="absolute -top-2 -left-2 w-11/12 h-11/12 sm:w-full sm:h-full rounded-full bg-blue-500 z-20" />
+                    {/* Background Circles */}
+                    <div className="absolute -bottom-6 right-0 w-full h-full rounded-full bg-gray-600 z-0" />
+                    <div className="absolute -bottom-2 -right-2 w-full h-full rounded-full bg-orange-500 z-10" />
+                    <div className="absolute -top-2 -left-2 w-full h-full rounded-full bg-blue-500 z-20" />
 
-                    <div className="relative w-11/12 h-11/12 sm:w-full sm:h-full rounded-full overflow-hidden z-30 shadow-2xl">
+                    {/* Main Image */}
+                    <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl z-30">
                         <Image
                             src="/image.png"
-                            alt="Classroom scene with teacher and students"
+                            alt="Teacher interacting with children in classroom"
                             fill
                             className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             priority
                         />
                     </div>
 
-                    <Image
-                        src="/icon-pen.png"
-                        alt="Pen Icon"
-                        width={60}
-                        height={60}
-                        className="absolute top-4 right-14 sm:top-2 sm:right-2 lg:top-4 lg:right-4 z-40"
-                    />
-                    <Image
-                        src="/icon-home.png"
-                        alt="Home Icon"
-                        width={60}
-                        height={60}
-                        className="absolute bottom-4 z-40"
-                    />
-                </motion.div>
+                    {/* Animated Icons */}
+                    <motion.div
+                        whileHover={{ y: -5, rotate: -5 }}
+                        transition={{ type: 'spring', stiffness: 200 }}
+                        className="absolute top-4 right-4 z-40"
+                    >
+                        <Image src="/icon-pen.png" alt="Pen icon" width={60} height={60} />
+                    </motion.div>
+
+                    <motion.div
+                        whileHover={{ y: -5, rotate: 5 }}
+                        transition={{ type: 'spring', stiffness: 200 }}
+                        className="absolute bottom-4 left-4 z-40"
+                    >
+                        <Image src="/icon-home.png" alt="Home icon" width={60} height={60} />
+                    </motion.div>
+                </motion.figure>
             </div>
         </section>
     );
 };
 
 export default AboutUsSection;
-
