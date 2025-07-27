@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Instrument_Sans, Baloo_Da_2, Pacifico } from 'next/font/google';
 import Footer from "@/components/Footer";
-
+import { Toaster } from 'react-hot-toast';
 
 const instrumental = Instrument_Sans({
   subsets: ['latin'],
@@ -39,9 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${instrumental.variable} ${baloo.variable} ${pacifico.variable}`}>
       <body className="font-baloo">
-      <Navbar/>
+        <Navbar />
+        <Toaster position="top-right" />
         {children}
-      <Footer/>  
+        <Footer />
       </body>
     </html>
   );

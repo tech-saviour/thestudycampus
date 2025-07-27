@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export default function AdmissionEnquirySection() {
   const [formData, setFormData] = useState({
@@ -10,10 +11,11 @@ export default function AdmissionEnquirySection() {
     email: '',
     mobile: '',
     child: '',
+    _gotcha: '', // Honeypot field
   });
 
-  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +23,10 @@ export default function AdmissionEnquirySection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('');
+
+    // Spam prevention: if honeypot filled, block submission
+    if (formData._gotcha) return;
+
     setLoading(true);
 
     try {
@@ -32,14 +37,17 @@ export default function AdmissionEnquirySection() {
       });
 
       const result = await res.json();
-      setStatus(result.message);
 
       if (res.ok) {
-        setFormData({ name: '', email: '', mobile: '', child: '' });
+        toast.success('Form submitted successfully!');
+        setSubmitted(true);
+        setFormData({ name: '', email: '', mobile: '', child: '', _gotcha: '' });
+      } else {
+        toast.error(result.message || 'Something went wrong.');
       }
     } catch (error) {
-      setStatus('Something went wrong. Please try again.');
-      console.error('Error sending email:', error);
+      toast.error('Network error. Please try again.');
+      console.error('Error submitting form:', error);
     } finally {
       setLoading(false);
     }
@@ -57,7 +65,7 @@ export default function AdmissionEnquirySection() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <Image src="/icon-pen.png" alt="Decorative Pen Icon" width={60} height={60} />
+        <Image src="/icon-pen.png" alt="" width={60} height={60} aria-hidden="true" />
       </motion.div>
       <motion.div
         className="absolute bottom-8 left-8 sm:left-12 z-10"
@@ -65,7 +73,7 @@ export default function AdmissionEnquirySection() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <Image src="/icon-home.png" alt="Decorative Home Icon" width={60} height={60} />
+        <Image src="/icon-home.png" alt="" width={60} height={60} aria-hidden="true" />
       </motion.div>
 
       {/* Left Text Section */}
@@ -88,87 +96,82 @@ export default function AdmissionEnquirySection() {
 
       {/* Right Form Section */}
       <motion.div
-        className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-md z-20"
+        className="bg-white shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-md z-20 min-h-[400px] relative"
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.4 }}
+        role="form"
+        aria-label="Admission Enquiry Form"
       >
-        <h2 className="text-xl font-bold mb-4 text-center text-gray-900">
-          Admission Enquiry AY 2025–26
-        </h2>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label htmlFor="name" className="sr-only">Full Name</label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Full Name"
-              className="rounded-full w-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="sr-only">Email</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email ID"
-              className="rounded-full w-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="mobile" className="sr-only">Mobile Number</label>
-            <input
-              id="mobile"
-              type="tel"
-              name="mobile"
-              required
-              value={formData.mobile}
-              onChange={handleChange}
-              placeholder="Mobile Number"
-              className="rounded-full w-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="child" className="sr-only">Child Name</label>
-            <input
-              id="child"
-              type="text"
-              name="child"
-              required
-              value={formData.child}
-              onChange={handleChange}
-              placeholder="Child Name"
-              className="rounded-full w-full px-4 py-2 bg-gray-200 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 mt-2 self-center rounded-md transition-all w-full"
-          >
-            {loading ? 'Sending...' : 'Submit'}
-          </button>
-
-          {status && (
-            <p
-              className={`text-center text-sm font-medium mt-3 ${
-                status.includes('successfully') ? 'text-green-600' : 'text-red-600'
-              }`}
+        <AnimatePresence>
+          {submitted ? (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center justify-center text-center h-full"
             >
-              {status}
-            </p>
+              <Image src="/success-check.gif" alt="Success" width={100} height={100} />
+              <h2 className="text-lg font-semibold text-green-700 mt-4">
+                Thank you! We&apos;ll get in touch shortly.
+              </h2>
+            </motion.div>
+          ) : (
+            <motion.form
+              key="form"
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <h2 className="text-xl font-bold text-center text-gray-900">
+                Admission Enquiry AY 2025–26
+              </h2>
+
+              {/* Honeypot field */}
+              <input
+                type="text"
+                name="_gotcha"
+                className="hidden"
+                autoComplete="off"
+                tabIndex={-1}
+              />
+
+              {[
+                { id: 'name', type: 'text', placeholder: 'Full Name' },
+                { id: 'email', type: 'email', placeholder: 'Email ID' },
+                { id: 'mobile', type: 'tel', placeholder: 'Mobile Number' },
+                { id: 'child', type: 'text', placeholder: "Child's Name" },
+              ].map((field) => (
+                <input
+                  key={field.id}
+                  id={field.id}
+                  name={field.id}
+                  type={field.type}
+                  required
+                  placeholder={field.placeholder}
+                  value={formData[field.id as keyof typeof formData]}
+                  onChange={handleChange}
+                  className="rounded-full w-full px-4 py-2 bg-gray-100 placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+                />
+              ))}
+
+              <motion.button
+                type="submit"
+                whileTap={{ scale: 0.95 }}
+                disabled={loading}
+                className={`bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 mt-2 rounded-full transition-all w-full ${
+                  loading ? 'opacity-70 cursor-not-allowed' : ''
+                }`}
+              >
+                {loading ? 'Submitting...' : 'Submit'}
+              </motion.button>
+            </motion.form>
           )}
-        </form>
+        </AnimatePresence>
       </motion.div>
     </section>
   );
